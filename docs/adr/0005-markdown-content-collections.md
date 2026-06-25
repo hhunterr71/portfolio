@@ -1,0 +1,3 @@
+# Author Projects and Creative posts as Markdown content collections
+
+Projects and Creative posts are both prose-heavy write-ups (description, methods, results) with occasional images — a natural fit for Astro content collections, where each entry is its own Markdown file with frontmatter and the page templates loop over the collection automatically. A JS/TS data file of project objects was considered and rejected: editing a Markdown file (including non-technical text fixes) is lower-friction than maintaining an array of objects without breaking syntax, which matters given the goal of being able to add and edit content easily.

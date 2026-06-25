@@ -1,0 +1,54 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<div id="project-filters" class="flex flex-wrap gap-2 mb-8">
+  {tags.map((tag) => (
+    <button
+      type="button"
+      data-tag={tag}
+      class="filter-chip text-sm px-3 py-1.5 rounded-full border border-ink/20 font-heading hover:border-accent transition-colors"
+    >
+      {tag}
+    </button>
+  ))}
+</div>
+
+<script>
+  const filterContainer = document.getElementById('project-filters');
+  const chips = Array.from(filterContainer?.querySelectorAll<HTMLButtonElement>('.filter-chip') ?? []);
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.project-card'));
+
+  const activeTags = new Set<string>();
+
+  function applyFilters() {
+    chips.forEach((chip) => {
+      const isActive = activeTags.has(chip.dataset.tag ?? '');
+      chip.classList.toggle('bg-accent', isActive);
+      chip.classList.toggle('text-background', isActive);
+      chip.classList.toggle('border-accent', isActive);
+    });
+
+    cards.forEach((card) => {
+      const cardTags = (card.dataset.tags ?? '').split(',');
+      const visible = activeTags.size === 0 || cardTags.some((tag) => activeTags.has(tag));
+      card.classList.toggle('hidden', !visible);
+    });
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const tag = chip.dataset.tag ?? '';
+      if (activeTags.has(tag)) {
+        activeTags.delete(tag);
+      } else {
+        activeTags.add(tag);
+      }
+      applyFilters();
+    });
+  });
+</script>

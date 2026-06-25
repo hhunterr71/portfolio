@@ -1,0 +1,104 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Footer from '../../components/Footer.astro';
+import Carousel from '../../components/Carousel.astro';
+import { withBase } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { title, summary, tags, repoUrl, liveUrl, codeAvailable, images } = project.data;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${title} — Hunter Hamilton`} description={summary}>
+  <NavBar current="projects" />
+
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    <a href={withBase('/projects/')} class="text-muted text-sm hover:text-accent transition-colors">&larr; Back to Projects</a>
+
+    <h1 class="font-heading font-bold text-3xl mt-4 mb-2">{title}</h1>
+
+    <ul class="flex flex-wrap gap-2 mb-6">
+      {tags.map((tag) => (
+        <li class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent font-heading">{tag}</li>
+      ))}
+    </ul>
+
+    <div class="flex flex-wrap gap-3 mb-8">
+      {liveUrl && (
+        <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="inline-block text-sm px-4 py-2 rounded-full bg-accent text-background hover:opacity-90 transition-opacity">
+          View Live Demo
+        </a>
+      )}
+      {repoUrl && (
+        <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="inline-block text-sm px-4 py-2 rounded-full bg-ink text-background hover:bg-accent transition-colors">
+          Visit My GitHub Repo
+        </a>
+      )}
+    </div>
+    {tags.includes('coding') && !codeAvailable && !repoUrl && (
+      <p class="text-muted text-sm mb-8 italic">Code samples for this project are not publicly available.</p>
+    )}
+
+    <article class="prose-custom max-w-none leading-relaxed">
+      <Content />
+    </article>
+
+    {images && images.length > 0 && (
+      <div class="mt-10">
+        <Carousel images={images} />
+      </div>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prose-custom :global(h2) {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-custom :global(h3) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-custom :global(p) {
+    margin-bottom: 1rem;
+  }
+  .prose-custom :global(ul),
+  .prose-custom :global(ol) {
+    margin-left: 1.25rem;
+    margin-bottom: 1rem;
+    list-style-position: outside;
+  }
+  .prose-custom :global(ul) {
+    list-style-type: disc;
+  }
+  .prose-custom :global(ol) {
+    list-style-type: decimal;
+  }
+  .prose-custom :global(pre) {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  .prose-custom :global(strong) {
+    font-weight: 600;
+  }
+</style>

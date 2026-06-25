@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import CreativePost from '../components/CreativePost.astro';
+
+const posts = await getCollection('creative');
+const featured = posts.filter((post) => post.data.featured).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const feed = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Creative — Hunter Hamilton" description="Mountain biking and skiing photo and video content.">
+  <NavBar current="creative" />
+
+  <main class="max-w-4xl mx-auto px-6 py-16">
+    <h1 class="font-heading font-bold text-3xl mb-2">Creative</h1>
+    <p class="text-muted mb-10">Photo and video content from mountain biking and skiing trips, with the occasional story behind the shot.</p>
+
+    {posts.length === 0 ? (
+      <p class="text-muted italic border border-ink/10 rounded-lg p-8 text-center">
+        New creative content is on its way — check back soon.
+      </p>
+    ) : (
+      <>
+        {featured.length > 0 && (
+          <section class="mb-12">
+            <h2 class="font-heading font-bold text-lg mb-4">Showcase</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {featured.map((post) => <CreativePost post={post} />)}
+            </div>
+          </section>
+        )}
+
+        <section>
+          <h2 class="font-heading font-bold text-lg mb-4">Latest</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {feed.map((post) => <CreativePost post={post} />)}
+          </div>
+        </section>
+      </>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>

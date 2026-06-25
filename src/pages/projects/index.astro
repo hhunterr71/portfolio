@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectFilters from '../../components/ProjectFilters.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+
+const allTags = [...new Set(projects.flatMap((project) => project.data.tags))].sort();
+---
+
+<BaseLayout title="Projects — Hunter Hamilton" description="Software and hands-on engineering projects, personal and professional.">
+  <NavBar current="projects" />
+
+  <main class="max-w-4xl mx-auto px-6 py-16">
+    <h1 class="font-heading font-bold text-3xl mb-2">Projects</h1>
+    <p class="text-muted mb-8">Check out a few of my most recent projects.</p>
+
+    <ProjectFilters tags={allTags} />
+
+    <div class="grid sm:grid-cols-2 gap-4">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

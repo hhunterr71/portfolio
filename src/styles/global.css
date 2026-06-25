@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fafaf9;
+  --color-ink: #27272a;
+  --color-muted: #71717a;
+  --color-accent: #2c6e91;
+  --color-accent-soft: #dceef5;
+
+  --font-heading: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-ink);
+  background: linear-gradient(to bottom, var(--color-background), var(--color-accent-soft));
+  background-repeat: no-repeat;
+}

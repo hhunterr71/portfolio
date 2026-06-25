@@ -1,0 +1,70 @@
+---
+import { withBase } from '../lib/url';
+
+interface Props {
+  current: 'resume' | 'projects' | 'creative';
+}
+
+const { current } = Astro.props;
+
+const links = [
+  { href: withBase('/resume/'), label: 'Resume', key: 'resume' },
+  { href: withBase('/projects/'), label: 'Projects', key: 'projects' },
+  { href: withBase('/creative/'), label: 'Creative', key: 'creative' },
+] as const;
+---
+
+<header class="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-ink/10">
+  <nav class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
+    <a href={withBase('/')} class="font-heading font-bold text-lg text-ink">Hunter Hamilton</a>
+
+    <button
+      id="nav-toggle"
+      class="md:hidden text-ink"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <span class="block w-6 h-0.5 bg-ink mb-1.5"></span>
+      <span class="block w-6 h-0.5 bg-ink mb-1.5"></span>
+      <span class="block w-6 h-0.5 bg-ink"></span>
+    </button>
+
+    <ul id="nav-links" class="hidden md:flex gap-8 font-heading font-medium">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class={`hover:text-accent transition-colors ${current === link.key ? 'text-accent' : 'text-ink'}`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <ul id="nav-links-mobile" class="hidden flex-col gap-4 px-6 pb-4 font-heading font-medium md:hidden">
+    {links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class={`block hover:text-accent transition-colors ${current === link.key ? 'text-accent' : 'text-ink'}`}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const mobileLinks = document.getElementById('nav-links-mobile');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = !mobileLinks?.classList.contains('hidden');
+    mobileLinks?.classList.toggle('hidden');
+    mobileLinks?.classList.toggle('flex');
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>

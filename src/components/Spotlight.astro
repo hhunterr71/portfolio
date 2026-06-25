@@ -1,0 +1,172 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Item {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  image?: ImageMetadata;
+  externalImage?: string;
+  code?: string;
+  icon?: string;
+}
+
+interface Props {
+  items: Item[];
+  intervalMs?: number;
+}
+
+const { items, intervalMs = 5000 } = Astro.props;
+---
+
+<div class="spotlight relative w-full max-w-3xl mx-auto mt-6" data-interval={intervalMs}>
+  <div class="spotlight-track relative h-[440px]">
+    {items.map((item, i) => (
+      <a
+        href={item.href}
+        class="spotlight-item absolute inset-0 flex flex-col justify-center gap-4 rounded-xl bg-accent/5 ring-1 ring-accent/15 p-6 text-left transition-opacity duration-500 hover:bg-accent/10 hover:ring-accent/40"
+        style={i === 0 ? undefined : 'opacity:0; pointer-events:none;'}
+        data-index={i}
+      >
+        <div>
+          <p class="text-xs font-heading font-semibold uppercase tracking-wide text-accent mb-1">{item.eyebrow}</p>
+          <h3 class="font-heading font-bold mb-1">{item.title}</h3>
+          <p class="text-muted text-sm">{item.description}</p>
+        </div>
+
+        {item.image && (
+          <Image
+            src={item.image}
+            alt=""
+            width={700}
+            class="max-h-64 w-auto max-w-full mx-auto object-contain rounded-lg"
+          />
+        )}
+
+        {item.externalImage && (
+          <img
+            src={item.externalImage}
+            alt=""
+            class="max-h-64 w-auto max-w-full mx-auto object-contain rounded-lg"
+          />
+        )}
+
+        {item.code && (
+          <pre class="w-full text-sm bg-ink text-background rounded-lg p-4 overflow-x-auto font-mono leading-relaxed"><code>{item.code}</code></pre>
+        )}
+
+        {item.icon && (
+          <div class="flex items-center justify-center h-32">
+            <svg class="w-16 h-16 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+            </svg>
+          </div>
+        )}
+      </a>
+    ))}
+  </div>
+
+  {items.length > 1 && (
+    <>
+      <button
+        type="button"
+        class="spotlight-prev absolute left-0 sm:-left-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/60 text-background flex items-center justify-center hover:bg-ink transition-colors"
+        aria-label="Previous highlight"
+      >
+        &larr;
+      </button>
+      <button
+        type="button"
+        class="spotlight-next absolute right-0 sm:-right-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/60 text-background flex items-center justify-center hover:bg-ink transition-colors"
+        aria-label="Next highlight"
+      >
+        &rarr;
+      </button>
+
+      <div class="spotlight-dots flex justify-center gap-2 mt-4">
+        {items.map((_, i) => (
+          <button
+            type="button"
+            class={`spotlight-dot w-2 h-2 rounded-full transition-colors ${i === 0 ? 'bg-accent' : 'bg-accent/30'}`}
+            data-index={i}
+            aria-label={`Show highlight ${i + 1}`}
+          />
+        ))}
+      </div>
+    </>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.spotlight').forEach((root) => {
+    const items = Array.from(root.querySelectorAll<HTMLAnchorElement>('.spotlight-item'));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.spotlight-dot'));
+    const prevBtn = root.querySelector<HTMLButtonElement>('.spotlight-prev');
+    const nextBtn = root.querySelector<HTMLButtonElement>('.spotlight-next');
+    const intervalMs = Number(root.dataset.interval) || 5000;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    function show(index: number) {
+      items.forEach((item, i) => {
+        const active = i === index;
+        item.style.opacity = active ? '1' : '0';
+        item.style.pointerEvents = active ? 'auto' : 'none';
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-accent', i === index);
+        dot.classList.toggle('bg-accent/30', i !== index);
+      });
+      current = index;
+    }
+
+    function next() {
+      show((current + 1) % items.length);
+    }
+
+    function prev() {
+      show((current - 1 + items.length) % items.length);
+    }
+
+    function stop() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    function start() {
+      if (reducedMotion || items.length < 2) return;
+      stop();
+      timer = setInterval(next, intervalMs);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        show(Number(dot.dataset.index));
+        start();
+      });
+    });
+
+    prevBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      prev();
+      start();
+    });
+    nextBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      next();
+      start();
+    });
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+
+    start();
+  });
+</script>

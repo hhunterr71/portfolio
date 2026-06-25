@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  images: { src: ImageMetadata; alt: string }[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="relative">
+  <div class="carousel-track flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-lg py-1">
+    {images.map((image) => (
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={1200}
+        class="snap-center shrink-0 h-[320px] sm:h-[420px] md:h-[480px] w-auto max-w-full object-contain rounded-lg"
+      />
+    ))}
+  </div>
+
+  {images.length > 1 && (
+    <>
+      <button
+        type="button"
+        class="carousel-prev absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/60 text-background flex items-center justify-center hover:bg-ink transition-colors"
+        aria-label="Previous image"
+      >
+        &larr;
+      </button>
+      <button
+        type="button"
+        class="carousel-next absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/60 text-background flex items-center justify-center hover:bg-ink transition-colors"
+        aria-label="Next image"
+      >
+        &rarr;
+      </button>
+    </>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.carousel-track').forEach((track) => {
+    const wrapper = track.parentElement;
+    const prev = wrapper?.querySelector<HTMLButtonElement>('.carousel-prev');
+    const next = wrapper?.querySelector<HTMLButtonElement>('.carousel-next');
+
+    prev?.addEventListener('click', () => {
+      track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+    });
+    next?.addEventListener('click', () => {
+      track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+    });
+  });
+</script>
