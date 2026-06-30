@@ -27,7 +27,7 @@ const feed = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.value
           <section class="mb-12">
             <h2 class="font-heading font-bold text-lg mb-4">Showcase</h2>
             <div class="grid sm:grid-cols-2 gap-4">
-              {featured.map((post) => <CreativePost post={post} />)}
+              {featured.map((post, i) => <CreativePost post={post} index={i} />)}
             </div>
           </section>
         )}
@@ -35,7 +35,7 @@ const feed = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.value
         <section>
           <h2 class="font-heading font-bold text-lg mb-4">Latest</h2>
           <div class="grid sm:grid-cols-2 gap-4">
-            {feed.map((post) => <CreativePost post={post} />)}
+            {feed.map((post, i) => <CreativePost post={post} index={i} />)}
           </div>
         </section>
       </>

@@ -27,3 +27,25 @@ const { title, description = 'Hunter Hamilton — Data Analyst, Mechanical Engin
     <slot />
   </body>
 </html>
+
+<script>
+  const targets = document.querySelectorAll<HTMLElement>('.assemble-in, .assemble-in-light');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+</script>

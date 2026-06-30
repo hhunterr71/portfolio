@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
+import DimensionLine from '../components/DimensionLine.astro';
+import ScrollCue from '../components/ScrollCue.astro';
 import { withBase } from '../lib/url';
 
 const technical = [
@@ -19,77 +21,95 @@ const soft = ['Critical Thinking', 'Project Management', 'Technical Writing', 'T
 <BaseLayout title="Resume — Hunter Hamilton" description="Data analyst and mechanical engineer with a background in energy optimization and HVAC.">
   <NavBar current="resume" />
 
-  <main class="max-w-3xl mx-auto px-6 py-16">
-    <h1 class="font-heading font-bold text-3xl mb-8">About Me</h1>
+  <section>
+    <div class="max-w-3xl mx-auto px-6 pt-16 pb-10">
+      <h1 class="assemble-in-light font-heading font-bold text-3xl mb-8" style="--assemble-delay:0ms">About Me</h1>
 
-    <div class="space-y-4 text-ink/90 leading-relaxed">
-      <p>I am a Data Analyst with a background in mechanical engineering and a passion for transforming complex datasets into actionable insights. With experience in data engineering, analysis, and reporting, I specialize in optimizing operations, detecting inefficiencies, and driving data-informed decision-making.</p>
+      <div class="assemble-in-light space-y-4 text-ink/90 leading-relaxed" style="--assemble-delay:80ms">
+        <p>I am a Data Analyst with a background in mechanical engineering and a passion for transforming complex datasets into actionable insights. With experience in data engineering, analysis, and reporting, I specialize in optimizing operations, detecting inefficiencies, and driving data-informed decision-making.</p>
 
-      <p>Throughout my career, I have managed large-scale data pipelines, automated reporting processes, and developed dashboards that simplify complex information for diverse stakeholders. I enjoy uncovering the story behind the data and ensuring insights translate into meaningful impact. My experience working with large facility portfolios has sharpened my ability to analyze data at scale, identify underperforming assets, and provide data-backed recommendations that enhance efficiency.</p>
+        <p>Throughout my career, I have managed large-scale data pipelines, automated reporting processes, and developed dashboards that simplify complex information for diverse stakeholders. I enjoy uncovering the story behind the data and ensuring insights translate into meaningful impact. My experience working with large facility portfolios has sharpened my ability to analyze data at scale, identify underperforming assets, and provide data-backed recommendations that enhance efficiency.</p>
 
-      <p class="font-semibold">Technical Expertise</p>
-      <p>My expertise includes data analytics, statistical modeling, and automation, complemented by a strong engineering foundation. I am proficient in Python, SQL, Power BI, and Tableau, with hands-on experience in data wrangling, predictive modeling, and cloud-based data solutions.</p>
+        <p class="font-semibold">Technical Expertise</p>
+        <p>My expertise includes data analytics, statistical modeling, and automation, complemented by a strong engineering foundation. I am proficient in Python, SQL, Power BI, and Tableau, with hands-on experience in data wrangling, predictive modeling, and cloud-based data solutions.</p>
 
-      <p class="font-semibold">Beyond the Desk</p>
-      <p>Away from the world of data, I embrace my passion as a freelance mountain biking and skiing content creator — pushing my boundaries to capture and document ski and bike adventures, and crafting narratives that invite others to experience the thrill of exploration and the beauty of the outdoors. See the <a href={withBase('/creative/')} class="text-accent hover:underline">Creative</a> page for more.</p>
+        <p class="font-semibold">Beyond the Desk</p>
+        <p>Away from the world of data, I embrace my passion as a freelance mountain biking and skiing content creator — pushing my boundaries to capture and document ski and bike adventures, and crafting narratives that invite others to experience the thrill of exploration and the beauty of the outdoors. See the <a href={withBase('/creative/')} class="text-accent hover:underline">Creative</a> page for more.</p>
+      </div>
+
+      <ScrollCue href="#skills" label="Skills" class="mt-10" />
     </div>
+  </section>
 
-    <h2 id="skills" class="font-heading font-bold text-2xl mt-16 mb-6">Skills</h2>
-    <div class="grid sm:grid-cols-3 gap-8">
-      <div>
-        <h3 class="font-heading font-semibold mb-2">Data Analysis & Programming</h3>
-        <ul class="text-sm text-muted space-y-1">
-          {technical.map((item) => <li>{item}</li>)}
-        </ul>
+  <DimensionLine />
+
+  <section class="bg-accent-deep text-on-deep">
+    <div class="max-w-3xl mx-auto px-6 py-16">
+      <h2 id="skills" class="assemble-in-light scroll-mt-24 font-heading font-bold text-2xl mb-6" style="--assemble-delay:0ms">Skills</h2>
+      <div class="grid sm:grid-cols-3 gap-8">
+        <div class="assemble-in-light" style="--assemble-delay:60ms">
+          <h3 class="font-heading font-semibold mb-2">Data Analysis & Programming</h3>
+          <ul class="text-sm text-on-deep/70 space-y-1">
+            {technical.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="assemble-in-light" style="--assemble-delay:140ms">
+          <h3 class="font-heading font-semibold mb-2">Mechanical Engineering</h3>
+          <ul class="text-sm text-on-deep/70 space-y-1">
+            {mechanical.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="assemble-in-light" style="--assemble-delay:220ms">
+          <h3 class="font-heading font-semibold mb-2">Soft Skills</h3>
+          <ul class="text-sm text-on-deep/70 space-y-1">
+            {soft.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
       </div>
-      <div>
-        <h3 class="font-heading font-semibold mb-2">Mechanical Engineering</h3>
-        <ul class="text-sm text-muted space-y-1">
-          {mechanical.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-heading font-semibold mb-2">Soft Skills</h3>
-        <ul class="text-sm text-muted space-y-1">
-          {soft.map((item) => <li>{item}</li>)}
-        </ul>
+
+      <ScrollCue href="#employment" label="Employment" variant="deep" class="mt-10" />
+    </div>
+  </section>
+
+  <DimensionLine />
+
+  <section>
+    <div class="max-w-3xl mx-auto px-6 pt-16 pb-16">
+      <h2 id="employment" class="assemble-in-light scroll-mt-24 font-heading font-bold text-2xl mb-6" style="--assemble-delay:0ms">Professional Employment History</h2>
+
+      <div class="space-y-10">
+        <div class="assemble-in-light" style="--assemble-delay:60ms">
+          <h3 class="font-heading font-bold">DB Engineering</h3>
+          <p class="text-muted text-sm mb-2">Engineering Analyst — March 2021 to Present</p>
+          <ul class="list-disc ml-5 text-sm space-y-1">
+            <li>Optimize building system and facilities operations of large campuses through data analysis.</li>
+            <li>Perform energy optimization analysis by isolating deficient and underperforming equipment through statistical modeling.</li>
+            <li>Lead client meetings, presenting system health insights via Power BI, Tableau, Looker, and other storytelling techniques.</li>
+            <li>Designed and implemented an automated Predictive Maintenance program, reducing unexpected maintenance costs by 15%. See the <a href={withBase('/projects/predictive-maintenance-program/')} class="text-accent hover:underline">Projects</a> page for more.</li>
+            <li>Developed and maintained an Energy Conservation program automating asset detection and solution engineering, resulting in significant annual utility cost reduction.</li>
+            <li>Consult for client partners including Google, Walmart, Exxon, Pentagon, Amazon, and Goldman Sachs, to support decision-making with data science techniques.</li>
+          </ul>
+
+          <p class="text-muted text-sm mt-4 mb-2">Commissioning Engineer — July 2020 to February 2021</p>
+          <ul class="list-disc ml-5 text-sm space-y-1">
+            <li>Led data collection and integration for building management systems during construction, providing a foundation for future data analysis and optimization.</li>
+            <li>Developed and led functional performance testing of all systems and equipment to ensure proper operational turnover.</li>
+            <li>Generated final commissioning reports and projected energy models to inform facility operations for final handoff.</li>
+          </ul>
+        </div>
+
+        <div class="assemble-in-light" style="--assemble-delay:140ms">
+          <h3 class="font-heading font-bold">Musgrove Engineering</h3>
+          <p class="text-muted text-sm mb-2">Design Engineer Intern — June 2019 to August 2019</p>
+          <ul class="list-disc ml-5 text-sm space-y-1">
+            <li>Assisted in design of new HVAC and plumbing systems for regional buildings with envelope and space calculations.</li>
+            <li>Generated comprehensive mechanical drawing packages in AutoCAD, incorporating load calculations to ensure accurate equipment selection.</li>
+            <li>Created mechanical drawings and schedules in AutoCAD for system design.</li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <h2 class="font-heading font-bold text-2xl mt-16 mb-6">Professional Employment History</h2>
-
-    <div class="space-y-10">
-      <div>
-        <h3 class="font-heading font-bold">DB Engineering</h3>
-        <p class="text-muted text-sm mb-2">Engineering Analyst — March 2021 to Present</p>
-        <ul class="list-disc ml-5 text-sm space-y-1">
-          <li>Optimize building system and facilities operations of large campuses through data analysis.</li>
-          <li>Perform energy optimization analysis by isolating deficient and underperforming equipment through statistical modeling.</li>
-          <li>Lead client meetings, presenting system health insights via Power BI, Tableau, Looker, and other storytelling techniques.</li>
-          <li>Designed and implemented an automated Predictive Maintenance program, reducing unexpected maintenance costs by 15%. See the <a href={withBase('/projects/predictive-maintenance-program/')} class="text-accent hover:underline">Projects</a> page for more.</li>
-          <li>Developed and maintained an Energy Conservation program automating asset detection and solution engineering, resulting in significant annual utility cost reduction.</li>
-          <li>Consult for client partners including Google, Walmart, Exxon, Pentagon, Amazon, and Goldman Sachs, to support decision-making with data science techniques.</li>
-        </ul>
-
-        <p class="text-muted text-sm mt-4 mb-2">Commissioning Engineer — July 2020 to February 2021</p>
-        <ul class="list-disc ml-5 text-sm space-y-1">
-          <li>Led data collection and integration for building management systems during construction, providing a foundation for future data analysis and optimization.</li>
-          <li>Developed and led functional performance testing of all systems and equipment to ensure proper operational turnover.</li>
-          <li>Generated final commissioning reports and projected energy models to inform facility operations for final handoff.</li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-heading font-bold">Musgrove Engineering</h3>
-        <p class="text-muted text-sm mb-2">Design Engineer Intern — June 2019 to August 2019</p>
-        <ul class="list-disc ml-5 text-sm space-y-1">
-          <li>Assisted in design of new HVAC and plumbing systems for regional buildings with envelope and space calculations.</li>
-          <li>Generated comprehensive mechanical drawing packages in AutoCAD, incorporating load calculations to ensure accurate equipment selection.</li>
-          <li>Created mechanical drawings and schedules in AutoCAD for system design.</li>
-        </ul>
-      </div>
-    </div>
-  </main>
+  </section>
 
   <Footer />
 </BaseLayout>

@@ -26,3 +26,21 @@ _Avoid_: Pinned, recent (featured is curated, not automatic)
 **Tag**:
 A freeform classifier on a Project (e.g. `coding`, `engineering`, `craft`, `personal`, `professional`) used for in-page chip filtering. Deliberately not a rigid single-value category — a Project can carry multiple tags across independent dimensions (what kind of work it is, and who it was for).
 _Avoid_: Category (implies a single rigid classification, which was explicitly rejected)
+
+## Visual Language
+
+**Band**:
+A full-width, alternating-color section used on the Hub and Resume pages, bounded by a Dimension Line. Confined to those two pages — Projects and Creative keep a single continuous background since their content is a filterable grid rather than discrete narrative sections.
+_Avoid_: Section (too generic — every page has sections; Band specifically means a colored, bounded region)
+
+**Dimension Line**:
+The thin horizontal rule with perpendicular tick marks at each end, rendered in the sand accent color, marking the boundary between two Bands.
+_Avoid_: Divider, seam
+
+**Assemble-in**:
+The entrance motion where page elements animate into place on load or scroll, evoking engineering parts coming together. Full/elaborate on the Hub; a lighter, consistent fade-and-slide version on Resume, Projects, and Creative. Disabled entirely under `prefers-reduced-motion`.
+_Avoid_: Reveal animation, fade-in
+
+**Water-light**:
+The single ambient, continuously-looping accent effect, confined to the Hub hero Band, evoking light moving on water. The only motion on the site that doesn't stop once triggered. Disabled under `prefers-reduced-motion`.
+_Avoid_: Hero animation, ambient background

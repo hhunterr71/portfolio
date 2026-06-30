@@ -4,22 +4,24 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  index?: number;
 }
 
-const { project } = Astro.props;
+const { project, index = 0 } = Astro.props;
 const { title, summary, tags } = project.data;
 ---
 
 <a
   href={withBase(`/projects/${project.id}/`)}
-  class="project-card block border border-ink/10 rounded-lg p-6 hover:border-accent transition-colors bg-background"
+  class="project-card assemble-in-light block border border-ink/10 rounded-lg p-6 hover:border-accent transition-colors bg-background"
+  style={`--assemble-delay:${Math.min(index, 6) * 60}ms`}
   data-tags={tags.join(',')}
 >
   <h3 class="font-heading font-bold text-lg mb-2">{title}</h3>
   <p class="text-muted text-sm mb-4">{summary}</p>
   <ul class="flex flex-wrap gap-2">
     {tags.map((tag) => (
-      <li class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent font-heading">{tag}</li>
+      <li class="text-xs px-2 py-1 rounded-full bg-accent-warm/15 text-accent-warm font-heading">{tag}</li>
     ))}
   </ul>
 </a>

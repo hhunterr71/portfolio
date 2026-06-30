@@ -26,14 +26,14 @@ const { items, intervalMs = 5000 } = Astro.props;
     {items.map((item, i) => (
       <a
         href={item.href}
-        class="spotlight-item absolute inset-0 flex flex-col justify-center gap-4 rounded-xl bg-accent/5 ring-1 ring-accent/15 p-6 text-left transition-opacity duration-500 hover:bg-accent/10 hover:ring-accent/40"
+        class="spotlight-item absolute inset-0 flex flex-col justify-center gap-4 rounded-xl bg-on-deep/5 ring-1 ring-on-deep/15 p-6 text-left transition-opacity duration-500 hover:bg-on-deep/10 hover:ring-accent-warm/50"
         style={i === 0 ? undefined : 'opacity:0; pointer-events:none;'}
         data-index={i}
       >
         <div>
-          <p class="text-xs font-heading font-semibold uppercase tracking-wide text-accent mb-1">{item.eyebrow}</p>
+          <p class="text-xs font-heading font-semibold uppercase tracking-wide text-accent-warm mb-1">{item.eyebrow}</p>
           <h3 class="font-heading font-bold mb-1">{item.title}</h3>
-          <p class="text-muted text-sm">{item.description}</p>
+          <p class="text-on-deep/70 text-sm">{item.description}</p>
         </div>
 
         {item.image && (
@@ -59,7 +59,7 @@ const { items, intervalMs = 5000 } = Astro.props;
 
         {item.icon && (
           <div class="flex items-center justify-center h-32">
-            <svg class="w-16 h-16 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+            <svg class="w-16 h-16 text-accent-warm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
               <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
             </svg>
           </div>
@@ -72,14 +72,14 @@ const { items, intervalMs = 5000 } = Astro.props;
     <>
       <button
         type="button"
-        class="spotlight-prev absolute left-0 sm:-left-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/60 text-background flex items-center justify-center hover:bg-ink transition-colors"
+        class="spotlight-prev absolute left-0 sm:-left-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-on-deep/15 text-on-deep flex items-center justify-center hover:bg-on-deep/25 transition-colors"
         aria-label="Previous highlight"
       >
         &larr;
       </button>
       <button
         type="button"
-        class="spotlight-next absolute right-0 sm:-right-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/60 text-background flex items-center justify-center hover:bg-ink transition-colors"
+        class="spotlight-next absolute right-0 sm:-right-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-on-deep/15 text-on-deep flex items-center justify-center hover:bg-on-deep/25 transition-colors"
         aria-label="Next highlight"
       >
         &rarr;
@@ -89,7 +89,7 @@ const { items, intervalMs = 5000 } = Astro.props;
         {items.map((_, i) => (
           <button
             type="button"
-            class={`spotlight-dot w-2 h-2 rounded-full transition-colors ${i === 0 ? 'bg-accent' : 'bg-accent/30'}`}
+            class={`spotlight-dot w-2 h-2 rounded-full transition-colors ${i === 0 ? 'bg-accent-warm' : 'bg-on-deep/30'}`}
             data-index={i}
             aria-label={`Show highlight ${i + 1}`}
           />
@@ -118,8 +118,8 @@ const { items, intervalMs = 5000 } = Astro.props;
         item.style.pointerEvents = active ? 'auto' : 'none';
       });
       dots.forEach((dot, i) => {
-        dot.classList.toggle('bg-accent', i === index);
-        dot.classList.toggle('bg-accent/30', i !== index);
+        dot.classList.toggle('bg-accent-warm', i === index);
+        dot.classList.toggle('bg-on-deep/30', i !== index);
       });
       current = index;
     }

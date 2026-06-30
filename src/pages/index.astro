@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Spotlight from '../components/Spotlight.astro';
+import DimensionLine from '../components/DimensionLine.astro';
+import ScrollCue from '../components/ScrollCue.astro';
 import { withBase } from '../lib/url';
 import headshot from '../assets/hub/hunter-headshot.jpg';
 import bikeHeadshot from '../assets/hub/hunter-bike-headshot.jpg';
@@ -98,41 +100,53 @@ const links = [
 ---
 
 <BaseLayout title="Hunter Hamilton">
-  <main class="min-h-screen flex flex-col items-center px-6 pt-20 pb-24 text-center">
-    <div class="headshot-swap relative w-56 h-56 sm:w-72 sm:h-72 mb-8">
-      <Image
-        src={headshot}
-        alt="Hunter Hamilton"
-        width={600}
-        class="headshot-default absolute inset-0 w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white transition-opacity duration-300"
-      />
-      <Image
-        src={bikeHeadshot}
-        alt="Hunter Hamilton mountain biking"
-        width={600}
-        class="headshot-bike absolute inset-0 w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white opacity-0 transition-opacity duration-300"
-      />
-    </div>
-    <h1 class="font-heading font-bold text-3xl mb-2">Hunter Hamilton</h1>
-    <p class="text-muted mb-10">Data Analyst · Mechanical Engineer · Outdoor Content Creator</p>
+  <section class="relative overflow-hidden">
+    <div class="water-light" aria-hidden="true"></div>
+    <main class="relative flex flex-col items-center px-6 pt-16 pb-10 text-center">
+      <div class="headshot-swap assemble-in relative w-44 h-44 sm:w-56 sm:h-56 mb-6" style="--assemble-delay:0ms">
+        <Image
+          src={headshot}
+          alt="Hunter Hamilton"
+          width={600}
+          class="headshot-default absolute inset-0 w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white transition-opacity duration-300"
+        />
+        <Image
+          src={bikeHeadshot}
+          alt="Hunter Hamilton mountain biking"
+          width={600}
+          class="headshot-bike absolute inset-0 w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white opacity-0 transition-opacity duration-300"
+        />
+      </div>
+      <h1 class="assemble-in font-heading font-bold text-3xl mb-2" style="--assemble-delay:120ms">Hunter Hamilton</h1>
+      <p class="assemble-in text-muted mb-8" style="--assemble-delay:200ms">Data Analyst · Mechanical Engineer · Outdoor Content Creator</p>
 
-    <div class="grid sm:grid-cols-3 gap-4 w-full max-w-3xl">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class="group rounded-xl bg-accent/5 p-6 text-left ring-1 ring-accent/15 transition-all hover:-translate-y-1 hover:bg-accent/10 hover:shadow-lg hover:ring-accent/40"
-        >
-          <svg class="w-7 h-7 mb-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d={link.icon} />
-          </svg>
-          <h2 class="font-heading font-bold mb-2">{link.label}</h2>
-          <p class="text-muted text-sm">{link.description}</p>
-        </a>
-      ))}
-    </div>
+      <div class="grid sm:grid-cols-3 gap-4 w-full max-w-3xl">
+        {links.map((link, i) => (
+          <a
+            href={link.href}
+            class="assemble-in group rounded-xl bg-accent/5 p-6 text-left ring-1 ring-accent/15 transition-all hover:-translate-y-1 hover:bg-accent/10 hover:shadow-lg hover:ring-accent/40"
+            style={`--assemble-delay:${280 + i * 100}ms`}
+          >
+            <svg class="w-7 h-7 mb-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d={link.icon} />
+            </svg>
+            <h2 class="font-heading font-bold mb-2">{link.label}</h2>
+            <p class="text-muted text-sm">{link.description}</p>
+          </a>
+        ))}
+      </div>
 
-    <Spotlight items={spotlightItems} />
-  </main>
+      <ScrollCue href="#highlights" label="Highlights" class="mt-10" />
+    </main>
+  </section>
+
+  <DimensionLine />
+
+  <section id="highlights" class="scroll-mt-6 bg-accent-deep text-on-deep">
+    <div class="assemble-in max-w-3xl mx-auto px-6 py-16" style="--assemble-delay:0ms">
+      <Spotlight items={spotlightItems} />
+    </div>
+  </section>
 </BaseLayout>
 
 <style>

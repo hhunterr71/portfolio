@@ -5,16 +5,17 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   post: CollectionEntry<'creative'>;
+  index?: number;
 }
 
-const { post } = Astro.props;
+const { post, index = 0 } = Astro.props;
 const { title, date, tags, media } = post.data;
 const { Content } = await render(post);
 
 const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
-<article class="border border-ink/10 rounded-lg overflow-hidden">
+<article class="assemble-in-light border border-ink/10 rounded-lg overflow-hidden" style={`--assemble-delay:${Math.min(index, 6) * 60}ms`}>
   {media[0] && media[0].type === 'image' && (
     <Image src={media[0].src} alt={media[0].alt ?? title} width={700} class="w-full h-56 object-cover" />
   )}
@@ -31,12 +32,12 @@ const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'nu
     {tags && tags.length > 0 && (
       <ul class="flex flex-wrap gap-2 mb-3">
         {tags.map((tag) => (
-          <li class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent font-heading">{tag}</li>
+          <li class="text-xs px-2 py-1 rounded-full bg-accent-warm/15 text-accent-warm font-heading">{tag}</li>
         ))}
       </ul>
     )}
 
-    <div class="text-sm leading-relaxed">
+    <div class="text-sm leading-relaxed space-y-3">
       <Content />
     </div>
   </div>

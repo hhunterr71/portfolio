@@ -23,7 +23,7 @@ const allTags = [...new Set(projects.flatMap((project) => project.data.tags))].s
     <ProjectFilters tags={allTags} />
 
     <div class="grid sm:grid-cols-2 gap-4">
-      {projects.map((project) => <ProjectCard project={project} />)}
+      {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
     </div>
   </main>
 

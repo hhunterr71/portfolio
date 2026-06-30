@@ -1,0 +1,34 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`max-w-5xl mx-auto px-6 ${className}`} aria-hidden="true">
+  <div class="dimension-line"></div>
+</div>
+
+<style>
+  .dimension-line {
+    position: relative;
+    height: 1px;
+    background: var(--color-accent-warm);
+  }
+  .dimension-line::before,
+  .dimension-line::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 1px;
+    height: 11px;
+    background: var(--color-accent-warm);
+  }
+  .dimension-line::before {
+    left: 0;
+  }
+  .dimension-line::after {
+    right: 0;
+  }
+</style>
