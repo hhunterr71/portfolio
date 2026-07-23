@@ -1,5 +1,6 @@
 ---
 title: Powder Fever
+summary: An indie comedic ski film about chasing storms, ski addiction, and finding the essence of it all.
 date: 2024-11-01
 featured: false
 tags: [skiing]

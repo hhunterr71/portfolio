@@ -1,8 +1,8 @@
 ---
-import '@fontsource/manrope/400.css';
-import '@fontsource/manrope/700.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/600.css';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/400-italic.css';
+import '@fontsource/space-mono/700.css';
+import '@fontsource/space-mono/700-italic.css';
 import '../styles/global.css';
 import { withBase } from '../lib/url';
 
@@ -23,7 +23,7 @@ const { title, description = 'Hunter Hamilton — Data Analyst, Mechanical Engin
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <title>{title}</title>
   </head>
-  <body class="font-body text-ink antialiased">
+  <body class="font-body text-primary antialiased">
     <slot />
   </body>
 </html>

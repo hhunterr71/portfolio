@@ -1,5 +1,6 @@
 ---
 title: "Garage Beers (Coming Soon)"
+summary: A mountain bike film born in a garage at 11pm — four friends, two cameras, and a formal objection to taking the world too seriously.
 date: 2026-06-25
 featured: false
 tags: [mountain-biking]

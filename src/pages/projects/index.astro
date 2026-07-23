@@ -11,14 +11,16 @@ const projects = (await getCollection('projects')).sort(
 );
 
 const allTags = [...new Set(projects.flatMap((project) => project.data.tags))].sort();
+const heading = 'Selected work, systems, and experiments.';
 ---
 
 <BaseLayout title="Projects — Hunter Hamilton" description="Software and hands-on engineering projects, personal and professional.">
   <NavBar current="projects" />
 
   <main class="max-w-4xl mx-auto px-6 py-16">
-    <h1 class="font-heading font-bold text-3xl mb-2">Projects</h1>
-    <p class="text-muted mb-8">Check out a few of my most recent projects.</p>
+    <p class="text-accent text-xs font-heading uppercase tracking-wide mb-4">Project Archive / {projects.length} Entries</p>
+    <h1 class="glitch-in font-heading font-bold text-3xl mb-2 text-primary" data-text={heading}>{heading}</h1>
+    <p class="text-muted mb-8">A working archive of professional engineering systems, personal software, and physical builds.</p>
 
     <ProjectFilters tags={allTags} />
 

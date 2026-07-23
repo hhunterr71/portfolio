@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import revelstoke from '../../assets/hub/blueprint/revelstoke.jpg';
+import northBend1 from '../../assets/hub/blueprint/north-bend-1.jpg';
+import lanePeak from '../../assets/hub/blueprint/lane-peak.jpg';
+import northBend2 from '../../assets/hub/blueprint/north-bend-2.jpg';
+
+const photos = [
+  { src: revelstoke, caption: 'Freeride Skiing — Revelstoke, BC' },
+  { src: northBend1, caption: 'Dust Bowl — North Bend, WA' },
+  { src: lanePeak, caption: 'Long Walk Out — Lane Peak, WA' },
+  { src: northBend2, caption: 'After Work Trail Riding — North Bend, WA' },
+];
+---
+
+<section id="outside-the-blueprint" class="scroll-mt-24">
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <p class="text-accent text-xs font-heading uppercase tracking-wide border-t border-muted/15 pt-4 mb-10">04 &mdash; Outside the Blueprint</p>
+
+    <div class="grid md:grid-cols-2 gap-10 items-start mb-10">
+      <h2 class="assemble-in-light font-heading font-bold text-2xl text-primary">Creativity craves motion.</h2>
+      <p class="assemble-in-light text-muted leading-relaxed" style="--assemble-delay:80ms">
+        Mountain biking and skiing aren't hobbies separate from engineering — they're where I calibrate intuition.
+        Reading terrain, managing energy, choosing lines and testing limits. The same skills that make a strong
+        analyst make a better rider.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      {photos.map((photo, i) => (
+        <div class="assemble-in-light relative aspect-video rounded-lg overflow-hidden border border-muted/15" style={`--assemble-delay:${i * 60}ms`}>
+          <Image
+            src={photo.src}
+            alt={photo.caption}
+            width={800}
+            widths={[400, 800]}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            class="w-full h-full object-cover"
+          />
+          <p class="absolute bottom-2 left-3 text-[10px] font-heading uppercase tracking-wide text-primary/90 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)]">
+            {photo.caption}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

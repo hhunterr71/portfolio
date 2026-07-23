@@ -1,0 +1,43 @@
+---
+import { getEntry } from 'astro:content';
+import { withBase } from '../../lib/url';
+
+// Hub-specific curation choice, independent of the Creative collection's own
+// `featured` flag — same pattern as Selected Projects being a separate
+// curation from Projects' `order`. Description is a short hand-written
+// blurb rather than the full post body, which runs long (crew list, etc.)
+// and isn't meant to be reproduced in full here.
+const post = await getEntry('creative', 'postcards-from-paradise');
+const description =
+  'A full-season ski film about home mountains, friendship, and the people who turn a powder day into paradise.';
+---
+
+{post && (
+  <section class="max-w-5xl mx-auto px-6 py-10">
+    <p class="text-accent text-xs font-heading uppercase tracking-wide mb-4">Featured Film</p>
+
+    <div class="border border-muted/15 rounded-lg overflow-hidden flex flex-col sm:flex-row">
+      <div class="sm:w-1/2 shrink-0 self-start aspect-video">
+        {post.data.media[0]?.type === 'video-embed' && (
+          <iframe src={post.data.media[0].src} title={post.data.title} class="w-full h-full" allowfullscreen></iframe>
+        )}
+      </div>
+      <div class="p-5 flex flex-col justify-center">
+        {post.data.tags && post.data.tags[0] && (
+          <span class="text-accent text-xs font-heading uppercase tracking-wide mb-1">{post.data.tags[0]}</span>
+        )}
+        <h3 class="font-heading font-bold text-lg text-primary mb-2">{post.data.title}</h3>
+        <p class="text-muted text-sm leading-relaxed">{description}</p>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a
+        href={withBase('/creative/')}
+        class="inline-block text-sm px-5 py-2.5 rounded border border-accent text-accent font-heading uppercase tracking-wide hover:bg-accent hover:text-bg transition-colors"
+      >
+        View Creative Archive &rarr;
+      </a>
+    </div>
+  </section>
+)}

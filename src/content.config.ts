@@ -12,6 +12,8 @@ const projects = defineCollection({
       liveUrl: z.string().url().optional(),
       codeAvailable: z.boolean().default(true),
       order: z.number().optional(),
+      year: z.number(),
+      featured: z.boolean().default(false),
       images: z.array(z.object({ src: image(), alt: z.string() })).optional(),
     }),
 });
@@ -21,6 +23,7 @@ const creative = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      summary: z.string(),
       date: z.coerce.date(),
       featured: z.boolean().default(false),
       tags: z.array(z.string()).optional(),

@@ -9,13 +9,13 @@ interface Props {
 }
 
 const { project, index = 0 } = Astro.props;
-const { title, summary, tags, images } = project.data;
+const { title, summary, tags, images, year } = project.data;
 const hero = images?.[0];
 ---
 
 <a
   href={withBase(`/projects/${project.id}/`)}
-  class="project-card assemble-in-light block border border-ink/10 rounded-lg overflow-hidden hover:border-accent-warm/50 transition-colors bg-background group"
+  class="project-card assemble-in-light block border border-muted/15 rounded-lg overflow-hidden hover:border-accent/50 transition-colors bg-surface group"
   style={`--assemble-delay:${Math.min(index, 6) * 60}ms`}
   data-tags={tags.join(',')}
 >
@@ -31,12 +31,16 @@ const hero = images?.[0];
     </div>
   )}
   <div class="p-5">
-    <h3 class="font-heading font-bold text-lg mb-1">{title}</h3>
-    <p class="text-muted text-sm mb-4 line-clamp-2">{summary}</p>
-    <ul class="flex flex-wrap gap-2">
+    <ul class="flex flex-wrap gap-2 mb-3">
       {tags.map((tag) => (
-        <li class="text-xs px-2 py-1 rounded-full bg-accent-warm/15 text-accent-warm font-heading">{tag}</li>
+        <li class="text-[10px] px-2 py-1 rounded border border-muted/30 text-muted uppercase tracking-wide font-heading">{tag}</li>
       ))}
     </ul>
+    <h3 class="font-heading font-bold text-lg mb-1 text-primary">{title}</h3>
+    <p class="text-muted text-sm mb-4 line-clamp-2">{summary}</p>
+    <div class="flex items-center justify-between border-t border-muted/15 pt-3 text-xs font-heading">
+      <span class="text-muted">{year}</span>
+      <span class="text-accent uppercase tracking-wide group-hover:underline">Open Case Study &rarr;</span>
+    </div>
   </div>
 </a>

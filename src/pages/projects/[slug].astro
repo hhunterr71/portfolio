@@ -25,22 +25,22 @@ const { Content } = await render(project);
   <main class="max-w-3xl mx-auto px-6 py-16">
     <a href={withBase('/projects/')} class="text-muted text-sm hover:text-accent transition-colors">&larr; Back to Projects</a>
 
-    <h1 class="font-heading font-bold text-3xl mt-4 mb-2">{title}</h1>
+    <h1 class="font-heading font-bold text-3xl mt-4 mb-2 text-primary">{title}</h1>
 
     <ul class="flex flex-wrap gap-2 mb-6">
       {tags.map((tag) => (
-        <li class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent font-heading">{tag}</li>
+        <li class="text-[10px] px-2 py-1 rounded border border-muted/30 text-muted uppercase tracking-wide font-heading">{tag}</li>
       ))}
     </ul>
 
     <div class="flex flex-wrap gap-3 mb-8">
       {liveUrl && (
-        <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="inline-block text-sm px-4 py-2 rounded-full bg-accent text-background hover:opacity-90 transition-opacity">
+        <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="inline-block text-sm px-4 py-2 rounded-full bg-accent text-bg hover:opacity-90 transition-opacity">
           View Live Demo
         </a>
       )}
       {repoUrl && (
-        <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="inline-block text-sm px-4 py-2 rounded-full bg-ink text-background hover:bg-accent transition-colors">
+        <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="inline-block text-sm px-4 py-2 rounded-full border border-muted/30 text-primary hover:border-accent hover:text-accent transition-colors">
           Visit My GitHub Repo
         </a>
       )}
@@ -93,10 +93,16 @@ const { Content } = await render(project);
     list-style-type: decimal;
   }
   .prose-custom :global(pre) {
+    background: var(--color-surface);
+    color: var(--color-primary);
+    border: 1px solid color-mix(in srgb, var(--color-muted) 15%, transparent);
     border-radius: 0.5rem;
     padding: 1rem;
     overflow-x: auto;
     margin-bottom: 1rem;
+  }
+  .prose-custom :global(code) {
+    font-family: var(--font-body);
   }
   .prose-custom :global(strong) {
     font-weight: 600;

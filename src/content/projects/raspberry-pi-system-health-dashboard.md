@@ -4,6 +4,8 @@ summary: "Built a real-time Raspberry Pi health dashboard to find out if a tempe
 tags: [coding, hardware, personal]
 codeAvailable: true
 order: 2
+year: 2026
+featured: true
 repoUrl: https://github.com/hhunterr71/rasberrypi4_zero_to_hero/tree/main/Captsone_1_System%20Heath%20and%20Fan%20Optimization
 images:
   - src: ../../assets/projects/rasberry-pi/hardware_setup.jpeg

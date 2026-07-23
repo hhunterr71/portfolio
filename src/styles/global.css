@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #fafaf9;
-  --color-ink: #27272a;
-  --color-muted: #71717a;
-  --color-accent: #1d5d80;
-  --color-accent-soft: #dceef5;
-  --color-accent-deep: #0b3049;
-  --color-accent-warm: #c9874a;
-  --color-on-deep: #f4ede1;
+  --color-bg: #0a0a0c;
+  --color-surface: #111114;
+  --color-primary: #ffffff;
+  --color-muted: #8a8a8f;
+  --color-accent: #c9a876;
 
-  --font-heading: "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-heading: "Space Mono", monospace;
+  --font-body: "Space Mono", monospace;
 }
 
 html {
@@ -27,9 +24,8 @@ html {
 
 body {
   min-height: 100vh;
-  color: var(--color-ink);
-  background: linear-gradient(to bottom, var(--color-background), var(--color-accent-soft));
-  background-repeat: no-repeat;
+  color: var(--color-primary);
+  background: var(--color-bg);
 }
 
 /* Assemble-in: elements animate into place on load/scroll. Full tier (Hub) vs light tier (everywhere else). */
@@ -64,35 +60,118 @@ body {
   }
 }
 
-/* Water-light: the single ambient, looping accent — confined to the Hub hero band. */
-.water-light {
+/* Scrolling Data: the single ambient, looping accent — decorative fake telemetry, confined to the Hub hero. */
+.scrolling-data {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  color: var(--color-muted);
+  opacity: 0.18;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  white-space: pre;
 }
-.water-light::before {
-  content: "";
-  position: absolute;
-  inset: -25%;
-  background: repeating-linear-gradient(
-    100deg,
-    color-mix(in srgb, var(--color-accent-warm) 20%, transparent) 0%,
-    transparent 6%,
-    transparent 14%
-  );
-  animation: water-drift 24s linear infinite;
+.scrolling-data__track {
+  display: flex;
+  flex-direction: column;
+  animation: scrolling-data-drift 60s linear infinite;
 }
-@keyframes water-drift {
+@keyframes scrolling-data-drift {
   from {
-    transform: translate(0, 0);
+    transform: translateY(0);
   }
   to {
-    transform: translate(-12%, 5%);
+    transform: translateY(-50%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .water-light::before {
+  .scrolling-data__track {
     animation: none;
+  }
+}
+
+/* Boot Sequence: terminal cursor for the Hub hero's typed intro. */
+.boot-cursor {
+  display: inline-block;
+  color: var(--color-accent);
+  animation: boot-cursor-blink 1s step-end infinite;
+}
+.boot-cursor.is-done {
+  animation: none;
+  opacity: 0;
+}
+@keyframes boot-cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boot-cursor {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Consulted With: continuous logo/text marquee. */
+.marquee {
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+/* Glitch-in: one-time chromatic-aberration settle, used on the Projects archive heading. */
+.glitch-in {
+  position: relative;
+}
+.glitch-in::before,
+.glitch-in::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.glitch-in::before {
+  color: #ff2e63;
+  animation: glitch-in-red 0.9s steps(2, end) 1;
+}
+.glitch-in::after {
+  color: #2ed6ff;
+  animation: glitch-in-blue 0.9s steps(2, end) 1;
+}
+@keyframes glitch-in-red {
+  0% { opacity: 0.8; transform: translate(-3px, 0); }
+  60% { opacity: 0.5; transform: translate(2px, 0); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+@keyframes glitch-in-blue {
+  0% { opacity: 0.8; transform: translate(3px, 0); }
+  60% { opacity: 0.5; transform: translate(-2px, 0); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glitch-in::before,
+  .glitch-in::after {
+    animation: none;
+    opacity: 0;
   }
 }

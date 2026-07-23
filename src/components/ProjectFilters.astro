@@ -11,7 +11,7 @@ const { tags } = Astro.props;
     <button
       type="button"
       data-tag={tag}
-      class="filter-chip text-sm px-3 py-1.5 rounded-full border border-ink/20 font-heading hover:border-accent transition-colors"
+      class="filter-chip text-sm px-3 py-1.5 rounded-full border border-muted/30 font-heading hover:border-accent transition-colors"
     >
       {tag}
     </button>
@@ -29,7 +29,7 @@ const { tags } = Astro.props;
     chips.forEach((chip) => {
       const isActive = activeTags.has(chip.dataset.tag ?? '');
       chip.classList.toggle('bg-accent', isActive);
-      chip.classList.toggle('text-background', isActive);
+      chip.classList.toggle('text-bg', isActive);
       chip.classList.toggle('border-accent', isActive);
     });
 

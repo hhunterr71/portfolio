@@ -9,36 +9,56 @@ interface Props {
 }
 
 const { post, index = 0 } = Astro.props;
-const { title, date, tags, media } = post.data;
+const { title, summary, date, tags, media } = post.data;
 const { Content } = await render(post);
 
 const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
-<article class="assemble-in-light border border-ink/10 rounded-lg overflow-hidden" style={`--assemble-delay:${Math.min(index, 6) * 60}ms`}>
-  {media[0] && media[0].type === 'image' && (
-    <Image src={media[0].src} alt={media[0].alt ?? title} width={700} class="w-full h-56 object-cover" />
-  )}
-  {media[0] && media[0].type === 'video-embed' && (
-    <div class="aspect-video">
-      <iframe src={media[0].src} title={title} class="w-full h-full" allowfullscreen></iframe>
-    </div>
-  )}
-
-  <div class="p-5">
-    <h3 class="font-heading font-bold text-lg mb-1">{title}</h3>
-    <p class="text-muted text-xs mb-3">{formattedDate}</p>
-
-    {tags && tags.length > 0 && (
-      <ul class="flex flex-wrap gap-2 mb-3">
-        {tags.map((tag) => (
-          <li class="text-xs px-2 py-1 rounded-full bg-accent-warm/15 text-accent-warm font-heading">{tag}</li>
-        ))}
-      </ul>
+<article class="assemble-in-light flex flex-col sm:flex-row gap-6 py-8" style={`--assemble-delay:${Math.min(index, 6) * 60}ms`}>
+  <div class="sm:w-96 shrink-0 self-start aspect-video overflow-hidden rounded-lg border border-muted/15">
+    {media[0] && media[0].type === 'image' && (
+      <Image src={media[0].src} alt={media[0].alt ?? title} width={700} class="w-full h-full object-cover" />
     )}
+    {media[0] && media[0].type === 'video-embed' && (
+      <iframe src={media[0].src} title={title} class="w-full h-full" allowfullscreen></iframe>
+    )}
+  </div>
 
-    <div class="text-sm leading-relaxed space-y-3">
-      <Content />
-    </div>
+  <div class="flex-1 min-w-0">
+    {tags && tags[0] && (
+      <span class="text-accent text-xs font-heading uppercase tracking-wide">{tags[0]}</span>
+    )}
+    <h3 class="font-heading font-bold text-xl text-primary mt-1 mb-1">{title}</h3>
+    <p class="text-muted text-xs mb-2">{formattedDate}</p>
+    <p class="text-muted text-sm leading-relaxed line-clamp-2 mb-2">{summary}</p>
+
+    <details class="creative-details">
+      <summary class="text-accent text-xs font-heading uppercase tracking-wide cursor-pointer select-none">
+        <span class="when-closed">Read More &rarr;</span>
+        <span class="when-open">Read Less &uarr;</span>
+      </summary>
+      <div class="text-muted text-sm leading-relaxed space-y-3 mt-3">
+        <Content />
+      </div>
+    </details>
   </div>
 </article>
+
+<style>
+  .creative-details summary {
+    list-style: none;
+  }
+  .creative-details summary::-webkit-details-marker {
+    display: none;
+  }
+  .creative-details .when-open {
+    display: none;
+  }
+  .creative-details[open] .when-open {
+    display: inline;
+  }
+  .creative-details[open] .when-closed {
+    display: none;
+  }
+</style>

@@ -3,6 +3,7 @@ title: Camper Van Build
 summary: A self-designed and built adventure van — research, design, and construction within a strict budget.
 tags: [engineering, personal]
 order: 7
+year: 2022
 images:
   - src: ../../assets/projects/camper-van-build/van-1.jpg
     alt: Van interior

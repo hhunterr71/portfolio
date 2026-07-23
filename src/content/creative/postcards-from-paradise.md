@@ -1,5 +1,6 @@
 ---
 title: Postcards from Paradise
+summary: A full-season ski film about home mountains, friendship, and the people who turn a powder day into paradise.
 date: 2025-11-01
 featured: false
 tags: [skiing]

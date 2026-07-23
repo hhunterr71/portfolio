@@ -1,0 +1,61 @@
+---
+import type { ImageMetadata } from 'astro';
+import google from '../../assets/hub/logos/google.svg';
+import amazon from '../../assets/hub/logos/amazon.svg';
+import walmart from '../../assets/hub/logos/walmart.svg';
+import goldmanSachs from '../../assets/hub/logos/goldman-sachs.svg';
+import exxonMobil from '../../assets/hub/logos/exxon-mobil.svg';
+
+type Entry = { type: 'logo'; src: ImageMetadata; label: string } | { type: 'text'; label: string };
+
+const entries: Entry[] = [
+  { type: 'logo', src: google, label: 'Google' },
+  { type: 'logo', src: walmart, label: 'Walmart' },
+  { type: 'logo', src: exxonMobil, label: 'ExxonMobil' },
+  { type: 'text', label: 'Dept. of Defense' },
+  { type: 'logo', src: amazon, label: 'Amazon' },
+  { type: 'logo', src: goldmanSachs, label: 'Goldman Sachs' },
+];
+
+const track = [...entries, ...entries];
+---
+
+<section id="consulted-with" class="scroll-mt-24 border-y border-muted/15">
+  <div class="max-w-5xl mx-auto px-6 py-8">
+    <p class="text-center text-xs font-heading uppercase tracking-wide text-muted mb-6">Consulted With</p>
+
+    <div class="marquee">
+      <div class="marquee__track items-center gap-16">
+        {track.map((entry) => (
+          <div class="flex items-center gap-2 shrink-0 opacity-70">
+            {entry.type !== 'text' && (
+              <>
+                <span
+                  class="logo-mask h-7 inline-block"
+                  style={`aspect-ratio:${entry.src.width}/${entry.src.height}; -webkit-mask-image:url('${entry.src.src}'); mask-image:url('${entry.src.src}');`}
+                  aria-hidden="true"
+                />
+                <span class="sr-only">{entry.label}</span>
+              </>
+            )}
+            {entry.type !== 'logo' && (
+              <span class="font-heading text-sm uppercase tracking-wide text-muted whitespace-nowrap">{entry.label}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .logo-mask {
+    background-color: var(--color-muted);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+</style>

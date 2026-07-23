@@ -5,6 +5,8 @@ tags: [coding, personal]
 repoUrl: https://github.com/hhunterr71/wayfinder
 codeAvailable: true
 order: 6
+year: 2026
+featured: true
 ---
 
 ## Description

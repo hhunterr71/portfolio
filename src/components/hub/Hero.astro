@@ -1,0 +1,150 @@
+---
+import { Image } from 'astro:assets';
+import ScrollCue from '../ScrollCue.astro';
+import headshot from '../../assets/hub/hunter-headshot.jpg';
+import bikeHeadshot from '../../assets/hub/hunter-bike-headshot.jpg';
+
+const nameText = 'HUNTER HAMILTON';
+const role1Text = 'Engineering Analyst — finding meaning in mechanical systems and data to drive informed decision-making.';
+const role2Text = 'Specializing in load behavior, system reliability, and equipment performance.';
+
+// Scrolling Data: purely decorative, build-time-generated fake telemetry noise.
+const channels = ['CH_01', 'CH_04', 'CH_07', 'CH_10', 'CH_13', 'AMP_2', 'AMP_5', 'AMP_7', 'SYS_OK', 'WARN_LVL3'];
+const dataLines = Array.from({ length: 48 }, () => {
+  const channel = channels[Math.floor(Math.random() * channels.length)];
+  const rpm = (2000 + Math.random() * 1200).toFixed(0);
+  const temp = (280 + Math.random() * 60).toFixed(2);
+  const pressure = (0.5 + Math.random() * 2.5).toFixed(4);
+  const velocity = (Math.random() * 0.2).toFixed(4);
+  const hex = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+  return `${channel}  T:${temp}K  P:${pressure}MPa  V:${velocity}m/s  RPM:${rpm}  0x${hex}`;
+});
+---
+
+<section class="relative overflow-hidden min-h-screen flex items-center py-24">
+  <div class="scrolling-data" aria-hidden="true">
+    <div class="scrolling-data__track">
+      <div>{dataLines.map((line) => <div>{line}</div>)}</div>
+      <div>{dataLines.map((line) => <div>{line}</div>)}</div>
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full">
+    <div>
+      <p class="font-heading text-sm text-muted mb-6">$ system.init — hunter_hamilton.portfolio</p>
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-primary mb-4 min-h-[1.2em]" id="boot-name"></h1>
+      <p class="font-heading text-muted mb-1 min-h-[1.5em]" id="boot-role-1"></p>
+      <p class="font-heading text-muted mb-6 min-h-[1.5em]" id="boot-role-2"></p>
+      <p class="font-heading text-sm text-accent opacity-0 transition-opacity duration-500 mb-8" id="boot-ready">// READY</p>
+      <ScrollCue href="#consulted-with" label="Scroll to continue" class="opacity-0 transition-opacity duration-700" />
+    </div>
+
+    <div class="headshot-swap relative aspect-[4/5] w-full max-w-md mx-auto md:mx-0 rounded-lg overflow-hidden border border-muted/15">
+      <Image
+        src={headshot}
+        alt="Hunter Hamilton"
+        width={800}
+        class="headshot-default absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+      />
+      <Image
+        src={bikeHeadshot}
+        alt="Hunter Hamilton mountain biking"
+        width={800}
+        class="headshot-bike absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (hover: hover) {
+    .headshot-swap:hover .headshot-default {
+      opacity: 0;
+    }
+    .headshot-swap:hover .headshot-bike {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const nameText = 'HUNTER HAMILTON';
+  const role1Text =
+    'Engineering Analyst — finding meaning in mechanical systems and data to drive informed decision-making.';
+  const role2Text = 'Specializing in load behavior, system reliability, and equipment performance.';
+
+  const nameEl = document.getElementById('boot-name');
+  const role1El = document.getElementById('boot-role-1');
+  const role2El = document.getElementById('boot-role-2');
+  const readyEl = document.getElementById('boot-ready') as HTMLElement | null;
+  const scrollCueEl = document.querySelector<HTMLElement>('.scroll-cue');
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let done = false;
+  let cursorEl: HTMLSpanElement | null = null;
+
+  function removeCursor() {
+    cursorEl?.remove();
+    cursorEl = null;
+  }
+
+  function addCursor(target: HTMLElement | null) {
+    removeCursor();
+    if (!target) return;
+    cursorEl = document.createElement('span');
+    cursorEl.className = 'boot-cursor';
+    cursorEl.textContent = '_';
+    target.appendChild(cursorEl);
+  }
+
+  function finish() {
+    done = true;
+    if (nameEl) nameEl.textContent = nameText;
+    if (role1El) role1El.textContent = role1Text;
+    if (role2El) role2El.textContent = role2Text;
+    removeCursor();
+    if (readyEl) readyEl.style.opacity = '1';
+    if (scrollCueEl) scrollCueEl.style.opacity = '1';
+  }
+
+  function wait(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function typeInto(el: HTMLElement | null, text: string, speed: number) {
+    if (!el) return;
+    for (let i = 0; i < text.length; i++) {
+      if (done) return;
+      el.textContent = text.slice(0, i + 1);
+      addCursor(el);
+      await wait(speed);
+    }
+  }
+
+  async function runBoot() {
+    await typeInto(nameEl, nameText, 70);
+    if (done) return;
+    await wait(200);
+    await typeInto(role1El, role1Text, 16);
+    if (done) return;
+    await typeInto(role2El, role2Text, 16);
+    if (done) return;
+    removeCursor();
+    if (readyEl) readyEl.style.opacity = '1';
+    await wait(150);
+    if (scrollCueEl) scrollCueEl.style.opacity = '1';
+    done = true;
+  }
+
+  if (reducedMotion) {
+    finish();
+  } else {
+    runBoot();
+    const skip = () => {
+      if (!done) finish();
+    };
+    window.addEventListener('scroll', skip, { once: true, passive: true });
+    window.addEventListener('keydown', skip, { once: true });
+  }
+</script>

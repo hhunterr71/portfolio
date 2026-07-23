@@ -3,6 +3,7 @@ title: Surf Fin Bag
 summary: A hand-sewn waterproof bag for surf fins, wax, and spare parts — built because nothing on the market fit what I actually needed.
 tags: [craft, personal]
 order: 8
+year: 2026
 images:
   - src: ../../assets/projects/surf-fin-bag/surf-bag-1.jpg
     alt: Finished surf fin bag, hanging by its straps

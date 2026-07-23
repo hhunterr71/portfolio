@@ -4,6 +4,8 @@ summary: An automated predictive maintenance program for HVAC motors, reducing u
 tags: [coding, professional]
 codeAvailable: false
 order: 1
+year: 2024
+featured: true
 images:
   - src: ../../assets/projects/predictive-maintenance/pm-graphic-1.png
     alt: Equipment health score dashboard over time

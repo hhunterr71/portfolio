@@ -5,40 +5,25 @@ import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
 import CreativePost from '../components/CreativePost.astro';
 
-const posts = await getCollection('creative');
-const featured = posts.filter((post) => post.data.featured).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const feed = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = (await getCollection('creative')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<BaseLayout title="Creative — Hunter Hamilton" description="Mountain biking and skiing photo and video content.">
+<BaseLayout title="Creative Archive — Hunter Hamilton" description="A few films, some photos, and a boat load of good times.">
   <NavBar current="creative" />
 
   <main class="max-w-4xl mx-auto px-6 py-16">
-    <h1 class="font-heading font-bold text-3xl mb-2">Creative</h1>
-    <p class="text-muted mb-10">Photo and video content from mountain biking and skiing trips, with the occasional story behind the shot.</p>
+    <p class="text-accent text-xs font-heading uppercase tracking-wide mb-4">Moving Image / Personal Creation</p>
+    <h1 class="font-heading font-bold text-3xl mb-2 text-primary">Creative Archive</h1>
+    <p class="text-muted mb-10">A few films, some photos, and a boat load of good times.</p>
 
     {posts.length === 0 ? (
-      <p class="text-muted italic border border-ink/10 rounded-lg p-8 text-center">
+      <p class="text-muted italic border border-muted/15 rounded-lg p-8 text-center">
         New creative content is on its way — check back soon.
       </p>
     ) : (
-      <>
-        {featured.length > 0 && (
-          <section class="mb-12">
-            <h2 class="font-heading font-bold text-lg mb-4">Showcase</h2>
-            <div class="grid sm:grid-cols-2 gap-4">
-              {featured.map((post, i) => <CreativePost post={post} index={i} />)}
-            </div>
-          </section>
-        )}
-
-        <section>
-          <h2 class="font-heading font-bold text-lg mb-4">Latest</h2>
-          <div class="grid sm:grid-cols-2 gap-4">
-            {feed.map((post, i) => <CreativePost post={post} index={i} />)}
-          </div>
-        </section>
-      </>
+      <div class="divide-y divide-muted/15 border-t border-b border-muted/15">
+        {posts.map((post, i) => <CreativePost post={post} index={i} />)}
+      </div>
     )}
   </main>
 
