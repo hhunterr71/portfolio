@@ -4,7 +4,7 @@ summary: A Chrome extension that turns "go/keyword" into your own personal go-li
 tags: [coding, personal]
 repoUrl: https://github.com/hhunterr71/wayfinder
 codeAvailable: true
-order: 5
+order: 6
 ---
 
 ## Description

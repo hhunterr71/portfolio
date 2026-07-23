@@ -24,7 +24,7 @@ A Post manually flagged (`featured: true`) to appear in the showcase row at the 
 _Avoid_: Pinned, recent (featured is curated, not automatic)
 
 **Tag**:
-A freeform classifier on a Project (e.g. `coding`, `engineering`, `craft`, `personal`, `professional`) used for in-page chip filtering. Deliberately not a rigid single-value category — a Project can carry multiple tags across independent dimensions (what kind of work it is, and who it was for).
+A freeform classifier on a Project (e.g. `coding`, `engineering`, `craft`, `personal`, `professional`, `hardware`) used for in-page chip filtering. Deliberately not a rigid single-value category — a Project can carry multiple tags across independent dimensions (what kind of work it is, and who it was for). `hardware` specifically signals embedded/physical computing projects distinct from pure software or mechanical engineering work.
 _Avoid_: Category (implies a single rigid classification, which was explicitly rejected)
 
 ## Visual Language

@@ -2,7 +2,7 @@
 title: Optical Profilometer
 summary: A senior design project to build an affordable optical profilometer measuring surface topography to 100nm.
 tags: [engineering, personal]
-order: 9
+order: 10
 images:
   - src: ../../assets/projects/optical-profilometer/general-assembly.png
     alt: General assembly of the optical profilometer

@@ -4,7 +4,7 @@ summary: A CLI tool that translates raw building-meter discovery data into Googl
 tags: [coding, professional]
 repoUrl: https://github.com/hhunterr71/meter_onboarding_tool
 codeAvailable: true
-order: 4
+order: 5
 ---
 
 ## Description

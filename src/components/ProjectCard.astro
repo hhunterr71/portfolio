@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { withBase } from '../lib/url';
 import type { CollectionEntry } from 'astro:content';
 
@@ -8,20 +9,34 @@ interface Props {
 }
 
 const { project, index = 0 } = Astro.props;
-const { title, summary, tags } = project.data;
+const { title, summary, tags, images } = project.data;
+const hero = images?.[0];
 ---
 
 <a
   href={withBase(`/projects/${project.id}/`)}
-  class="project-card assemble-in-light block border border-ink/10 rounded-lg p-6 hover:border-accent transition-colors bg-background"
+  class="project-card assemble-in-light block border border-ink/10 rounded-lg overflow-hidden hover:border-accent-warm/50 transition-colors bg-background group"
   style={`--assemble-delay:${Math.min(index, 6) * 60}ms`}
   data-tags={tags.join(',')}
 >
-  <h3 class="font-heading font-bold text-lg mb-2">{title}</h3>
-  <p class="text-muted text-sm mb-4">{summary}</p>
-  <ul class="flex flex-wrap gap-2">
-    {tags.map((tag) => (
-      <li class="text-xs px-2 py-1 rounded-full bg-accent-warm/15 text-accent-warm font-heading">{tag}</li>
-    ))}
-  </ul>
+  {hero && (
+    <div class="overflow-hidden" style="aspect-ratio: 16/9;">
+      <Image
+        src={hero.src}
+        alt={hero.alt}
+        widths={[400, 800]}
+        sizes="(min-width: 640px) 50vw, 100vw"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+  )}
+  <div class="p-5">
+    <h3 class="font-heading font-bold text-lg mb-1">{title}</h3>
+    <p class="text-muted text-sm mb-4 line-clamp-2">{summary}</p>
+    <ul class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <li class="text-xs px-2 py-1 rounded-full bg-accent-warm/15 text-accent-warm font-heading">{tag}</li>
+      ))}
+    </ul>
+  </div>
 </a>
