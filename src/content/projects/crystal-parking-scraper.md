@@ -1,5 +1,5 @@
 ---
-title: Crystal Parking Reservation Bot
+title: Real-Time Parking Monitor & Reservation Engine
 summary: A Flask web app that watches Crystal Mountain's parking calendar and auto-reserves a spot the moment one opens up, with live progress streamed to the browser.
 tags: [coding, personal]
 repoUrl: https://github.com/hhunterr71/crystal_park_res_bot
