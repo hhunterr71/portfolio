@@ -21,7 +21,7 @@ const dataLines = Array.from({ length: 48 }, () => {
 });
 ---
 
-<section class="relative overflow-hidden min-h-screen flex items-center py-24">
+<section class="relative isolate overflow-hidden min-h-screen flex items-center py-24">
   <div class="scrolling-data" aria-hidden="true">
     <div class="scrolling-data__track">
       <div>{dataLines.map((line) => <div>{line}</div>)}</div>

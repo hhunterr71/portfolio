@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../../lib/url';
+
 const steps = [
   {
     title: 'Discovery & Scoping',
@@ -38,5 +40,16 @@ const steps = [
         </li>
       ))}
     </ol>
+
+    <div class="assemble-in-light mt-16 pt-10 border-t border-muted/15 text-center" style={`--assemble-delay:${steps.length * 80}ms`}>
+      <p class="font-heading font-bold text-lg text-primary mb-2">Have a project like this? Let's talk.</p>
+      <p class="text-muted text-sm mb-6">Rates scoped per engagement.</p>
+      <a
+        href={withBase('/contact/')}
+        class="inline-block text-sm px-5 py-2.5 rounded border border-accent text-accent font-heading uppercase tracking-wide hover:bg-accent hover:text-bg transition-colors"
+      >
+        Contact Me &rarr;
+      </a>
+    </div>
   </div>
 </section>

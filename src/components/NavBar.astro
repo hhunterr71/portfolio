@@ -2,7 +2,7 @@
 import { withBase } from '../lib/url';
 
 interface Props {
-  current: 'hub' | 'projects' | 'creative';
+  current: 'hub' | 'projects' | 'creative' | 'contact';
 }
 
 const { current } = Astro.props;
@@ -11,6 +11,11 @@ const links = [
   { href: withBase('/projects/'), label: 'Projects', key: 'projects' },
   { href: withBase('/creative/'), label: 'Creative', key: 'creative' },
 ] as const;
+
+const contactHref = withBase('/contact/');
+const contactButtonClass = `text-sm px-4 py-1.5 rounded border border-accent font-heading uppercase tracking-wide transition-colors ${
+  current === 'contact' ? 'bg-accent text-bg' : 'text-accent hover:bg-accent hover:text-bg'
+}`;
 ---
 
 <header class="sticky top-0 z-10 bg-bg/95 backdrop-blur border-b border-muted/15">
@@ -28,18 +33,21 @@ const links = [
       <span class="block w-6 h-0.5 bg-primary"></span>
     </button>
 
-    <ul id="nav-links" class="hidden md:flex gap-8 font-heading font-medium">
-      {links.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class={`hover:text-accent transition-colors ${current === link.key ? 'text-accent' : 'text-primary'}`}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="hidden md:flex items-center gap-8">
+      <ul id="nav-links" class="flex gap-8 font-heading font-medium">
+        {links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class={`hover:text-accent transition-colors ${current === link.key ? 'text-accent' : 'text-primary'}`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href={contactHref} class={contactButtonClass}>Contact</a>
+    </div>
   </nav>
 
   <ul id="nav-links-mobile" class="hidden flex-col gap-4 px-6 pb-4 font-heading font-medium md:hidden">
@@ -53,6 +61,9 @@ const links = [
         </a>
       </li>
     ))}
+    <li>
+      <a href={contactHref} class={`inline-block ${contactButtonClass}`}>Contact</a>
+    </li>
   </ul>
 </header>
 
