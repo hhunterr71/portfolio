@@ -14,7 +14,7 @@ const projects = defineCollection({
       order: z.number().optional(),
       year: z.number(),
       featured: z.boolean().default(false),
-      images: z.array(z.object({ src: image(), alt: z.string() })).optional(),
+      images: z.array(z.object({ src: image(), alt: z.string(), position: z.string().optional() })).optional(),
     }),
 });
 

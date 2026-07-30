@@ -24,8 +24,10 @@ const hero = images?.[0];
       <Image
         src={hero.src}
         alt={hero.alt}
+        width={800}
         widths={[400, 800]}
         sizes="(min-width: 640px) 50vw, 100vw"
+        style={`object-position: ${hero.position ?? 'center'}`}
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       />
     </div>

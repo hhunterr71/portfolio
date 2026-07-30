@@ -3,7 +3,7 @@ title: Predictive Maintenance Program
 summary: An automated predictive maintenance program for HVAC motors, reducing unexpected maintenance costs by 15%.
 tags: [coding, professional]
 codeAvailable: false
-order: 1
+order: 3
 year: 2024
 featured: true
 images:

@@ -4,7 +4,7 @@ summary: A from-the-ground-up rebuild of this site — same goal as the original
 tags: [coding, personal]
 repoUrl: https://github.com/hhunterr71/portfolio
 codeAvailable: true
-order: 9
+order: 10
 year: 2026
 ---
 

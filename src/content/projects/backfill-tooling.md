@@ -4,7 +4,7 @@ summary: CLI tooling that backfills (and safely deletes) historical building-met
 tags: [coding, professional]
 repoUrl: https://github.com/hhunterr71/backfill_tooling
 codeAvailable: true
-order: 4
+order: 5
 year: 2026
 featured: true
 ---
