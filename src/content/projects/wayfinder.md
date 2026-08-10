@@ -7,6 +7,9 @@ codeAvailable: true
 order: 7
 year: 2026
 featured: true
+images:
+  - src: ../../assets/projects/wayfinder/wayfinder_site.png
+    alt: Wayfinder dashboard for managing go/keyword link mappings
 ---
 
 ## Description
